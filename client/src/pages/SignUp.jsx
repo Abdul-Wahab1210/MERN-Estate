@@ -67,73 +67,92 @@ export default function SignUp() {
   };
   console.log(formData);
   return (
-    <div className="p-3 mx-auto max-w-lg">
-      <h1 className="text-3xl font-semibold text-center ">Sign Up</h1>
-      <form
-        onSubmit={handleSubmit}
-        className="flex flex-col justify-center p-2 items-center gap-2 mt-4"
-      >
-        <div className="relative mb-1 w-full">
-          <input
-            type="text"
-            id="username"
-            className="peer w-full border rounded-lg p-2 focus:outline-none focus:ring focus:ring-blue-400 "
-            onChange={handleChange}
-          />
-          <label
-            for="username"
-            className="absolute left-2 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500"
+    <div className="h-[90vh] flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-400 px-4 ">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-lg p-6 sm:p-8">
+        <h1 className="text-4xl font-bold text-center text-slate-800 mb-6">
+          Sign Up
+        </h1>
+
+        <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+          <div className="relative w-full">
+            <input
+              type="text"
+              id="username"
+              className="peer w-full border border-gray-300 rounded-md px-3 pt-4 pb-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              onChange={handleChange}
+              placeholder=" "
+            />
+            <label
+              htmlFor="username"
+              className="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500"
+            >
+              {!formData.username || formData.username.trim().length === 0
+                ? "Username"
+                : ""}
+            </label>
+          </div>
+
+          <div className="relative w-full">
+            <input
+              type="email"
+              id="email"
+              className="peer w-full border border-gray-300 rounded-md px-3 pt-4 pb-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              onChange={handleChange}
+              placeholder=" "
+            />
+            <label
+              htmlFor="email"
+              className="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500"
+            >
+              {!formData.email || formData.email.trim().length === 0
+                ? "Email"
+                : ""}
+            </label>
+          </div>
+
+          <div className="relative w-full">
+            <input
+              type="password"
+              id="password"
+              className="peer w-full border border-gray-300 rounded-md px-3 pt-4 pb-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+              onChange={handleChange}
+              placeholder=" "
+            />
+            <label
+              htmlFor="password"
+              className="absolute left-3 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-3 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500"
+            >
+              {!formData.password || formData.password.trim().length === 0
+                ? "Password"
+                : ""}
+            </label>
+          </div>
+
+          <button
+            disabled={loading}
+            className={`w-full text-white font-semibold py-3 rounded-lg transition-transform duration-200 ${
+              loading
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-blue-600 hover:bg-blue-700 hover:scale-[1.02]"
+            }`}
           >
-            {!formData.username || formData.username.trim().length === 0
-              ? "Username"
-              : ""}
-          </label>
-        </div>
-        <div className="relative mb-1 w-full">
-          <input
-            type="email"
-            id="email"
-            className="peer w-full border rounded-lg p-2 focus:outline-none focus:ring focus:ring-blue-400"
-            onChange={handleChange}
-          />
-          <label
-            for="email"
-            className="absolute left-2 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500"
+            {loading ? "Loading..." : "Sign Up"}
+          </button>
+        </form>
+
+        {error && (
+          <p className="text-red-500 mt-4 text-center font-semibold">{error}</p>
+        )}
+
+        <div className="mt-6 text-sm flex justify-center gap-1">
+          <p>Have an account?</p>
+          <Link
+            to="/sign-in"
+            className="text-blue-600 hover:underline font-medium"
           >
-            {!formData.email || formData.email.trim().length === 0
-              ? "Email"
-              : ""}
-          </label>
+            Sign in
+          </Link>
         </div>
-        <div className="relative mb-1 w-full">
-          <input
-            type="password"
-            id="password"
-            className="peer w-full border rounded-lg p-2 focus:outline-none focus:ring focus:ring-blue-400"
-            onChange={handleChange}
-          />
-          <label
-            for="password"
-            className="absolute left-2 top-2 text-gray-500 text-sm transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-focus:top-0 peer-focus:text-sm peer-focus:text-blue-500"
-          >
-            {!formData.password || formData.password.trim().length === 0
-              ? "Password"
-              : ""}
-          </label>
-        </div>
-        <button
-          disabled={loading}
-          className=" opacity-90 w-auto mx-auto bg-slate-700 uppercase text-white rounded-lg px-5 py-3 font-bold hover:opacity-100 hover:scale-105 transition"
-        >
-          {loading ? "Loading..." : "Sign Up"}
-        </button>
-      </form>
-      {error && <p className="text-red-500 mt-5 font-bold">{error}</p>}
-      <div className="flex gap-2 justify-center">
-        <p>Have an account?</p>
-        <Link to={"/sign-in"}>
-          <span className="text-blue-500 hover:font-bold">Sign-in</span>
-        </Link>
       </div>
     </div>
   );
