@@ -42,6 +42,11 @@ const userSchema = new mongoose.Schema(
         message: "Password must have at least 6 characters.",
       },
     },
+    avatar: {
+      type: String,
+      default:
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png", // Default avatar URL
+    },
   },
   { timestamps: true }
 );
