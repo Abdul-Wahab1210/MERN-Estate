@@ -55,15 +55,13 @@ export const signin = async (req, res, next) => {
       return next(errorHandler(401, "Invalid credentials"));
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-    const { password: _, ...userWithoutPassword } = user._doc;
+    const { password: _, ...rest } = user._doc;
     res
       .cookie("accesstoken", token, {
         httpOnly: true,
       })
       .status(200)
-      .json({
-        userWithoutPassword,
-      });
+      .json(rest);
   } catch (error) {
     next(error);
   }
@@ -74,15 +72,13 @@ export const google = async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
     if (user) {
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-      const { password: _, ...userWithoutPassword } = user._doc;
+      const { password: _, ...rest } = user._doc;
       res
         .cookie("accesstoken", token, {
           httpOnly: true,
         })
         .status(200)
-        .json({
-          userWithoutPassword,
-        });
+        .json(rest);
     } else {
       const generatedpassword =
         Math.random().toString(36).slice(-8) +
@@ -98,15 +94,13 @@ export const google = async (req, res, next) => {
       });
       await newUser.save();
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET);
-      const { password: _, ...userWithoutPassword } = newUser._doc;
+      const { password: _, ...rest } = newUser._doc;
       res
         .cookie("accesstoken", token, {
           httpOnly: true,
         })
-        .status(201)
-        .json({
-          userWithoutPassword,
-        });
+        .status(200)
+        .json(rest);
     }
   } catch (error) {
     next(error);
